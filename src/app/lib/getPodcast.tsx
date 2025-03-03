@@ -1,4 +1,6 @@
+import { parseStringPromise } from "xml2js";
 import { ApiResponse, Podcast } from "../types/index";
+import { parse } from "path";
 
 export const getPodcast = () => {
   return fetch(
@@ -24,4 +26,50 @@ export const findPodcastById = async (id: string | string[] | undefined): Promis
 
   return podcasts.find(podcast => podcast.id === id) || null;
   
+}
+
+export const getEpisodeById = async (id:string) => {
+  const res = await fetch(`https://itunes.apple.com/lookup?id=${id}`)
+  const data = await res.json();
+
+  if (!data.results || data.results.length === 0) {
+    throw new Error("No se encontraron datos para este podcast");
+  }
+
+  const formatDurationInSeconds = (durationInSeconds: number) => {
+    // Obtener las horas, minutos y segundos
+    const hours = Math.floor(durationInSeconds / 3600);
+    const minutes = Math.floor((durationInSeconds % 3600) / 60);
+    const seconds = durationInSeconds % 60;
+  
+    // Formatear la duración como HH:MM:SS
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const rssUrl = data.results[0].feedUrl;
+
+  const rssResponse = await fetch(rssUrl)
+  const xml = await rssResponse.text();
+
+  const formatDateUsingIntl = (dateString: string) => {
+    const date = new Date(dateString);
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+    });
+  
+    return formatter.format(date);
+  };
+
+  //Convertir XML a JSON
+  const json = await parseStringPromise(xml);
+
+  const episodes = json.rss.channel[0].item.map((episode: any) => ({
+    title: episode.title[0],
+    duration: episode["itunes:duration"] ? formatDurationInSeconds(episode["itunes:duration"][0]) : "No duration",
+    date: formatDateUsingIntl(episode.pubDate[0]),
+  }));
+
+  return episodes;
 }

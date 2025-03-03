@@ -1,3 +1,5 @@
+import { Dhurjati } from "next/font/google";
+
 export interface Podcast {
     id: string;
     name: string;
@@ -24,8 +26,21 @@ export interface Podcast {
     };
   }
 
-
 interface PodcastParams {
   params: { id: string };
+}
+
+type Props = {
+  podcast: Podcast;
+};
+
+export interface Episodes {
+  title: string;
+  date: string;
+  duration: string;
+}
+
+export interface EpisodesCartProps {
+  id: string;
 }
   
