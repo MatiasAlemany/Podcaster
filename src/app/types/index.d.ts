@@ -35,9 +35,12 @@ type Props = {
 };
 
 export interface Episodes {
+  id: string;
   title: string;
   date: string;
   duration: string;
+  audioUrl: string;
+  description: string;
 }
 
 export interface EpisodesCartProps {

@@ -1,6 +1,6 @@
 import { parseStringPromise } from "xml2js";
 import { ApiResponse, Podcast } from "../types/index";
-import { parse } from "path";
+import { Episodes } from "../types/index";
 
 export const getPodcast = () => {
   return fetch(
@@ -28,7 +28,7 @@ export const findPodcastById = async (id: string | string[] | undefined): Promis
   
 }
 
-export const getEpisodeById = async (id:string) => {
+export const getEpisodesById = async (id:string) => {
   const res = await fetch(`https://itunes.apple.com/lookup?id=${id}`)
   const data = await res.json();
 
@@ -66,10 +66,21 @@ export const getEpisodeById = async (id:string) => {
   const json = await parseStringPromise(xml);
 
   const episodes = json.rss.channel[0].item.map((episode: any) => ({
-    title: episode.title[0],
+    id: episode.guid ? episode.guid[0]._ : null,
+    title: episode.title ? episode.title[0] : "No title",
     duration: episode["itunes:duration"] ? formatDurationInSeconds(episode["itunes:duration"][0]) : "No duration",
-    date: formatDateUsingIntl(episode.pubDate[0]),
+    date: episode.pubDate ? formatDateUsingIntl(episode.pubDate[0]) : "No date",
+    audioUrl: episode["media:content"] ? episode["media:content"][0].$?.url : null,
+    description: episode.description ? episode.description[0] : "No description"
   }));
 
   return episodes;
+}
+
+
+export const getEpisodeById =  async (podcastId: string, episodeId:string ): Promise<Episodes | null> => {
+  const episodes = await getEpisodesById(podcastId);
+  const myEpisode = episodes.find((episode: Episodes) => episode.id.includes(episodeId))
+
+  return myEpisode;
 }

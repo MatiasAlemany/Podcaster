@@ -24,15 +24,15 @@ export const Buscador = ({podcast, setFilteredPodcast}: BuscadorProps) => {
   };
 
   return (
-    <div className="mb-4 flex flex-col gap-2">
-      <label className="font-bold">Busca tu podcast aqui!</label>
+    <div className="mb-8 flex flex-col gap-4 items-center">
+      <label className="font-bold text-xl text-gray-800">Busca tu podcast aquí!</label>
       <input
         type="text"
         value={filteredPodcast}
-        placeholder="Buscar por titulo o autor"
+        placeholder="Buscar por título o autor"
         onChange={handleSearch}
-        className="border-2 border-solid rounded-xl max-w-sm"
-      ></input>
+        className="w-full max-w-sm border-2 border-gray-300 rounded-xl p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+      />
     </div>
   );
 };
