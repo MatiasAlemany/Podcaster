@@ -25,7 +25,12 @@ export interface ApiResponse {
 }
 
 export type PodcastParams = Promise<{
-  id: string 
+  id: string;
+}>;
+
+export type Params = Promise<{
+  id: string;
+  episodeId: string;
 }>;
 
 export type Props = {

@@ -24,9 +24,13 @@ const EpisodesCart = async ({ id }: EpisodesCartProps) => {
           </tr>
         </thead>
         <tbody className="bg-gray-50">
-          {episodesUser.map((episode: any, key:string) => (
-            <Link href={`/podcast/${id}/episode/${episode.id}`} key={episode.id} legacyBehavior>
-              <tr  className="border-b cursor-pointer hover:bg-gray-100">
+          {episodesUser.map((episode: any, key: string) => (
+            <Link
+              href={`/podcast/${id}/episode/${episode.id}`}
+              key={episode.id}
+              legacyBehavior
+            >
+              <tr className="border-b cursor-pointer hover:bg-gray-100">
                 <td className="px-4 py-2">{episode.title}</td>
                 <td className="px-4 py-2">{episode.date}</td>
                 <td className="px-4 py-2">
@@ -41,9 +45,14 @@ const EpisodesCart = async ({ id }: EpisodesCartProps) => {
   );
 };
 
-export default async function PodcastEpisode({ params }: {params: PodcastParams}) {
-  const {id}= await params;
+export default async function PodcastEpisode({
+  params,
+}: {
+  params: PodcastParams;
+}) {
+  const { id } = await params;
   const selectedPodcast = await findPodcastById(id);
+  console.log("PODCAST", selectedPodcast)
 
   if (!selectedPodcast) {
     return <h1>Podcast no encontrado</h1>;

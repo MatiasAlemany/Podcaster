@@ -4,28 +4,31 @@ import { useState } from "react";
 import { Podcast } from "../types";
 
 interface BuscadorProps {
-    podcast: Podcast[];
-    setFilteredPodcast: (filtered: Podcast[]) => void;
+  podcast: Podcast[];
+  setFilteredPodcast: (filtered: Podcast[]) => void;
 }
 
-export const Buscador = ({podcast, setFilteredPodcast}: BuscadorProps) => {
+export const Buscador = ({ podcast, setFilteredPodcast }: BuscadorProps) => {
   const [filteredPodcast, setPodcast] = useState("");
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPodcast(value);
 
-    const filtered = podcast.filter((podcast) => 
+    const filtered = podcast.filter(
+      (podcast) =>
         podcast.name.toLowerCase().includes(value.toLowerCase()) ||
-        podcast.artist.toLowerCase().includes(value.toLowerCase())       
-   )
+        podcast.artist.toLowerCase().includes(value.toLowerCase())
+    );
 
-   setFilteredPodcast(filtered);
+    setFilteredPodcast(filtered);
   };
 
   return (
     <div className="mb-8 flex flex-col gap-4 items-center">
-      <label className="font-mono font-bold text-xl text-gray-800">Busca tu podcast aquí!</label>
+      <label className="font-mono font-bold text-xl text-gray-800">
+        Busca tu podcast aquí!
+      </label>
       <input
         type="text"
         value={filteredPodcast}

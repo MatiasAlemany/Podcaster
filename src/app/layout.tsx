@@ -7,14 +7,14 @@ const poppins = Poppins({
   variable: "--font-poppins-sans",
   weight: ["600"],
   subsets: ["latin"],
-  style: ["italic"]
+  style: ["italic"],
 });
 
 const poppinsText = Poppins({
   variable: "--font-poppins-mono",
   subsets: ["latin"],
   weight: ["300"],
-  style: ["italic"]
+  style: ["italic"],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${poppinsText.variable} font-mono antialiased`}
       >
-        <Nav/>
+        <Nav />
         {children}
       </body>
     </html>
