@@ -25,7 +25,7 @@ export const Buscador = ({podcast, setFilteredPodcast}: BuscadorProps) => {
 
   return (
     <div className="mb-8 flex flex-col gap-4 items-center">
-      <label className="font-bold text-xl text-gray-800">Busca tu podcast aquí!</label>
+      <label className="font-mono font-bold text-xl text-gray-800">Busca tu podcast aquí!</label>
       <input
         type="text"
         value={filteredPodcast}

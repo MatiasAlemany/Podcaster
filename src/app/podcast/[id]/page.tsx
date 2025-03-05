@@ -1,29 +1,7 @@
 import { findPodcastById, getEpisodesById } from "@/app/lib/getPodcast";
 import { EpisodesCartProps, PodcastParams } from "@/app/types";
-import { Props } from "@/app/types";
-import Image from "next/image";
+import { PodcastCart } from "@/app/components/podcast-cart";
 import Link from "next/link";
-
-export const PodcastCart = ({ podcast }: Props) => {
-  return (
-    <div className="m-4 p-6 gap-4 items-start w-1/3 shadow-lg rounded-2xl bg-white transition-all hover:shadow-2xl">
-      <div className="flex flex-col items-center p-4 m-2">
-        <Image
-          width={180}
-          height={180}
-          alt={podcast.image}
-          src={podcast.image}
-          className="rounded-xl transition-transform transform hover:scale-105"
-        />
-        <hr className="block w-full h-px m-4 bg-gray-300 border-0" />
-        <h1 className="font-bold text-lg">{podcast.artist}</h1>
-        <h2 className="italic text-gray-600">{`by ${podcast.name}`}</h2>
-        <hr className="block w-full h-px m-4 bg-gray-300 border-0" />
-        <p className="text-gray-700">{podcast.description}</p>
-      </div>
-    </div>
-  );
-};
 
 const EpisodesCart = async ({ id }: EpisodesCartProps) => {
   const episodesUser = await getEpisodesById(id);
@@ -33,7 +11,7 @@ const EpisodesCart = async ({ id }: EpisodesCartProps) => {
   }
 
   return (
-    <div className="w-2/3 m-4 p-4">
+    <div className="w-full sm:w-full md:full m-4 p-4">
       <h2 className="mb-4 p-4 text-lg font-semibold bg-gray-100 shadow-2xl rounded-xl">
         Episodes: {episodesUser.length}
       </h2>
@@ -63,8 +41,8 @@ const EpisodesCart = async ({ id }: EpisodesCartProps) => {
   );
 };
 
-export default async function PodcastEpisode({ params }: PodcastParams) {
-  const { id } = await params;
+export default async function PodcastEpisode({ params }: {params: PodcastParams}) {
+  const {id}= await params;
   const selectedPodcast = await findPodcastById(id);
 
   if (!selectedPodcast) {
@@ -72,7 +50,7 @@ export default async function PodcastEpisode({ params }: PodcastParams) {
   }
 
   return (
-    <div className="flex gap-8">
+    <div className="flex flex-col sm:flex-col md:flex lg:flex-row gap-8">
       <PodcastCart podcast={selectedPodcast} />
       <EpisodesCart id={id} />
     </div>

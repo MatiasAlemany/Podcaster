@@ -1,14 +1,7 @@
 import { findPodcastById, getEpisodeById } from "@/app/lib/getPodcast";
-import { PodcastCart } from "../../page";
-
-type AudioPlayerProps = {
-  podcastId: string;
-  episodeId: string;
-};
-
-type DescriptionProps = {
-  html: string | TrustedHTML;
-};
+import { PodcastCart } from "@/app/components/podcast-cart";
+import { DescriptionProps } from "@/app/types";
+import { AudioPlayerProps } from "@/app/types";
 
 const Description = ({ html }: DescriptionProps) => {
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
@@ -38,13 +31,16 @@ const AudioPlayer = async ({
   );
 };
 
+type Params = Promise<{
+  podcastId: string;
+  episodeId: string;
+}>
+
 export default async function EpisodeReproducer({
   params,
-}: {
-  params: { id: string; episodeId: string };
-}) {
-  const { id, episodeId } = await params;
-  const podcast = await findPodcastById(id);
+}:{params: Params}) {
+  const { podcastId, episodeId } = await params;
+  const podcast = await findPodcastById(podcastId);
 
   if (!podcast) {
     return <h1>Podcast no encontrado</h1>;
@@ -53,7 +49,7 @@ export default async function EpisodeReproducer({
   return (
     <div className="flex flex-col lg:flex-row items-start p-8">
       <PodcastCart podcast={podcast} />
-      <AudioPlayer podcastId={id} episodeId={episodeId} />
+      <AudioPlayer podcastId={podcastId} episodeId={episodeId} />
     </div>
   );
 }
