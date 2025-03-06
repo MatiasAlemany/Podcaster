@@ -4,7 +4,7 @@ import { Props } from "../types";
 
 export const PodcastCart = ({ podcast }: Props) => {
   return (
-    <div className="m-4 p-6 gap-4 items-start w-full h-min sm:w-full md:full lg:w-1/3 shadow-lg rounded-2xl bg-white transition-all hover:shadow-2xl">
+    <div className="m-4 gap-4 items-start w-full h-min sm:w-full md:full lg:w-1/3 shadow-lg rounded-2xl bg-white transition-all hover:shadow-2xl">
       <div className="flex flex-col items-center p-4 m-2">
         <Link href={`/podcast/${podcast.id}`}>
           <Image
@@ -17,9 +17,9 @@ export const PodcastCart = ({ podcast }: Props) => {
         </Link>
         <hr className="block w-full h-px m-4 bg-gray-300 border-0" />
         <h1 className="font-bold text-lg">{podcast.artist}</h1>
-        <h2 className="italic text-gray-600 dark:text-white">{`by ${podcast.name}`}</h2>
+        <h2 className="italic text-gray-600 ">{`by ${podcast.name}`}</h2>
         <hr className="block w-full h-px m-4 bg-gray-300 border-0" />
-        <p className="text-gray-700 dark:text-white">{podcast.description}</p>
+        <p className="text-gray-700 ">{podcast.description}</p>
       </div>
     </div>
   );

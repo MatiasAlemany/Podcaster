@@ -14,7 +14,7 @@ const AudioPlayer = async ({ podcastId, episodeId }: AudioPlayerProps) => {
   if (!episode) return "Episode not found";
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-3xl mx-6">
+    <div className="bg-white rounded-2xl shadow-lg md:p-6 w-full max-w-3xl mx-4 sm:p-0">
       <h1 className="text-3xl font-semibold text-gray-900 mb-4">
         {episode?.title}
       </h1>

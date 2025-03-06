@@ -11,7 +11,7 @@ const EpisodesCart = async ({ id }: EpisodesCartProps) => {
   }
 
   return (
-    <div className="w-full sm:w-full md:full m-4 p-4">
+    <div className="sm:p-0 md:p-4 w-full max-w-3xl mx-4 ">
       <h2 className="mb-4 p-4 text-lg font-semibold bg-gray-100 shadow-2xl rounded-xl">
         Episodes: {episodesUser.length}
       </h2>
@@ -52,14 +52,13 @@ export default async function PodcastEpisode({
 }) {
   const { id } = await params;
   const selectedPodcast = await findPodcastById(id);
-  console.log("PODCAST", selectedPodcast)
 
   if (!selectedPodcast) {
     return <h1>Podcast no encontrado</h1>;
   }
 
   return (
-    <div className="flex flex-col sm:flex-col md:flex lg:flex-row gap-8">
+    <div className="flex flex-col lg:flex-row items-start m-2">
       <PodcastCart podcast={selectedPodcast} />
       <EpisodesCart id={id} />
     </div>

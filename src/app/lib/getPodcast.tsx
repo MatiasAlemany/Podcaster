@@ -13,7 +13,7 @@ export const getPodcast = () => {
         id: entry.id.attributes["im:id"], // Extraemos el id desde entry.id.attributes["im:id"]
         name: entry["im:name"].label,
         artist: entry["im:artist"].label,
-        image: entry["im:image"][0]?.label, // Tomamos la primera imagen disponible
+        image: entry["im:image"][2]?.label, // Tomamos la primera imagen disponible
         description: entry["summary"].label,
       }));
     });
@@ -94,6 +94,5 @@ export const getEpisodeById = async (
     episode.id.includes(episodeId)
   );
 
-  console.log(myEpisode);
   return myEpisode;
 };

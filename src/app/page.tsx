@@ -11,7 +11,7 @@ const PodcastData = ({ podcast }: { podcast: Podcast[] }) => {
     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8 xl:gap-16 mt-6">
       {podcast.map(({ id, image, name, artist }) => (
         <Link key={id} href={`/podcast/${id}`}>
-          <li className="flex flex-col items-center bg-white rounded-2xl shadow-lg p-4 transition-all hover:shadow-2xl hover:scale-105">
+          <li className="flex flex-col justify-between text-center items-center h-full flex-1 bg-white rounded-2xl shadow-lg p-4 transition-all hover:shadow-2xl hover:scale-105">
             <Image
               width={120}
               height={120}
